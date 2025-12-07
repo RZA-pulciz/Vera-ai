@@ -1,6 +1,6 @@
-# OmniaTech AI
+# OmniaTech AI Documentation
 
-Benvenuti nella documentazione pubblica di OmniaTech AI.
+Benvenuti nella documentazione pubblica di **OmniaTech AI**.
 
 ## 🚀 Visione
 Unifica processi tecnici e business in un ecosistema modulare, sicuro e visibile.

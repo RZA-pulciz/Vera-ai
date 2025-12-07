@@ -1,13 +1,14 @@
 # OmniaTech AI
 
-OmniaTech AI è una piattaforma multi‑settore che orchestra processi tecnici e business in un unico monorepo.
+OmniaTech AI è una piattaforma enterprise multi‑settore che integra orchestrazione, compliance, incident management e billing in un unico monorepo.
 
-## 🚀 Funzionalità
-- Orchestrator, Superior Agent, Workforce
-- Compliance, Audit, Incident Management
-- Billing, Reports, Dashboard
-- Gateway sicuro con JWT/mTLS
-- Ops: bootstrap, backup, restore
+## 🚀 Caratteristiche principali
+- **Orchestrator**: workflow resilienti e multi‑settore
+- **Security**: JWT/JWKS, mTLS, audit trail
+- **Compliance**: checklist dinamiche e report mensili
+- **Incident Management**: escalation automatica e notifiche Telegram/Matrix
+- **Billing**: multi‑tenant, fatturazione e KPI
+- **Observability**: Prometheus, Grafana, OpenTelemetry
 
 ## 📦 Installazione
 ### Docker Compose
@@ -20,7 +21,7 @@ docker compose -f infra/docker-compose.yml up -d --build
 ### Pacchetti
 Scaricabili da [Releases](https://github.com/HighKali/omniatech-ai/releases).
 
-## 🔑 Secrets
+## 🔑 Secrets richiesti
 - DOCKER_USERNAME, DOCKER_PASSWORD
 - POSTGRES_PASSWORD
 - JWT_ISSUER, JWT_AUDIENCE, JWKS_URL
@@ -28,5 +29,5 @@ Scaricabili da [Releases](https://github.com/HighKali/omniatech-ai/releases).
 ## 📊 Dashboard
 http://localhost:8080/dash/status
 
-## 📚 Documentazione
-Consulta la [Wiki](https://github.com/HighKali/omniatech-ai/wiki).
+## 🌐 Dominio GitHub Pages
+Documentazione pubblica: https://highkali.github.io/omniatech-ai/
