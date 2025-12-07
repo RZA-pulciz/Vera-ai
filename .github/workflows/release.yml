@@ -1,33 +1,17 @@
-bash -c '
-set -euo pipefail
-
-# Config
-: "${GITHUB_TOKEN:?Esporta GITHUB_TOKEN (scope: repo, workflow)}"
-GITHUB_USER="highkali"
-REPO_NAME="omniatech-ai"
-
-# Precheck
-command -v gh >/dev/null || { echo "Installa GitHub CLI"; exit 1; }
-command -v git >/dev/null || { echo "Installa git"; exit 1; }
-
-# Workflow packaging
-mkdir -p .github/workflows
-cat > .github/workflows/release.yml <<EOF
 name: Build & Release Packages
 on:
   push:
     tags:
       - "v*"
+
 jobs:
   build-linux:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Build tar.gz
-        run: |
-          tar -czvf omniatech-ai.tar.gz orchestrator services superior_agent datalake gateway infra ops
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        run: tar -czvf omniatech-ai.tar.gz orchestrator services superior_agent datalake gateway infra ops
+      - uses: actions/upload-artifact@v4
         with:
           name: omniatech-ai-tar
           path: omniatech-ai.tar.gz
@@ -40,17 +24,17 @@ jobs:
         run: pip install pyinstaller
       - name: Build exe
         run: pyinstaller --onefile gateway/api-gateway.py
-      - name: Upload exe
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: omniatech-ai-exe
           path: dist/api-gateway.exe
+      - name: Install WiX Toolset
+        run: choco install wixtoolset --yes
       - name: Build MSI
         run: |
-          echo "Simula creazione MSI con WiX/NSIS"
-          echo "Placeholder omniatech-ai.msi" > omniatech-ai.msi
-      - name: Upload MSI
-        uses: actions/upload-artifact@v4
+          candle.exe installer.wxs -o installer.wixobj
+          light.exe installer.wixobj -o omniatech-ai.msi
+      - uses: actions/upload-artifact@v4
         with:
           name: omniatech-ai-msi
           path: omniatech-ai.msi
@@ -70,14 +54,4 @@ jobs:
         with:
           files: ./release/*
         env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
-EOF
-
-# Commit workflow
-git add .github/workflows/release.yml
-git commit -m "Add release workflow for exe, msi, tar.gz packaging"
-git push
-
-echo "=== Workflow pronto. Tagga una release con: git tag v1.0.0 && git push origin v1.0.0 ==="
-echo "Al push del tag, GitHub Actions genererà omniatech-ai.tar.gz, api-gateway.exe e omniatech-ai.msi e li allegherà alla release."
-'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
