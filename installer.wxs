@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="*" Name="OmniaTech AI" Language="1033" Version="1.0.0.0" Manufacturer="HighKali" UpgradeCode="c877a598-7478-4178-ae8c-4759c6358337">
+  <Product Id="*" Name="OmniaTech AI" Language="1033" Version="1.0.0.0" Manufacturer="HighKali" UpgradeCode="a9107702-2a7f-490a-96f4-25d126a9cbe3">
     <Package InstallerVersion="500" Compressed="yes" InstallScope="perMachine" />
     <MediaTemplate />
     <Feature Id="ProductFeature" Title="OmniaTech AI" Level="1">
@@ -16,7 +16,7 @@
   </Fragment>
   <Fragment>
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-      <Component Id="GatewayExe" Guid="1929e3db-ed1c-493b-a623-e41dcfa19d65">
+      <Component Id="GatewayExe" Guid="147463d0-f285-4bb1-ad3f-b9a77bd7c862">
         <File Id="ApiGatewayExe" Source="dist\\api-gateway.exe" KeyPath="yes" />
       </Component>
     </ComponentGroup>
