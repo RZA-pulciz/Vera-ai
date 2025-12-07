@@ -1,0 +1,57 @@
+name: Build & Release Packages
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build tar.gz
+        run: tar -czvf omniatech-ai.tar.gz orchestrator services superior_agent datalake gateway infra ops
+      - uses: actions/upload-artifact@v4
+        with:
+          name: omniatech-ai-tar
+          path: omniatech-ai.tar.gz
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PyInstaller
+        run: pip install pyinstaller
+      - name: Build exe
+        run: pyinstaller --onefile gateway/api-gateway.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: omniatech-ai-exe
+          path: dist/api-gateway.exe
+      - name: Install WiX Toolset
+        run: choco install wixtoolset --yes
+      - name: Build MSI
+        run: |
+          candle.exe installer.wxs -o installer.wixobj
+          light.exe installer.wixobj -o omniatech-ai.msi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: omniatech-ai-msi
+          path: omniatech-ai.msi
+
+  publish-release:
+    needs: [build-linux, build-windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { name: omniatech-ai-tar, path: ./release }
+      - uses: actions/download-artifact@v4
+        with: { name: omniatech-ai-exe, path: ./release }
+      - uses: actions/download-artifact@v4
+        with: { name: omniatech-ai-msi, path: ./release }
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./release/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
