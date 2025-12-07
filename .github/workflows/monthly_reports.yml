@@ -1,0 +1,8 @@
+name: Monthly Reports Export
+on: { schedule: [{ cron: "0 0 1 * *" }] }
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Simula export report mensile"

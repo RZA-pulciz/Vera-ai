@@ -1,0 +1,1 @@
+.venv/\n__pycache__/\n*.pyc\n*.log\n.env\nnode_modules/\n.next/\nbackups/

@@ -1,0 +1,11 @@
+name: CD
+on: { push: { branches: ["production"] } }
+jobs:
+  docker-build-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+      - run: docker compose -f infra/docker-compose.yml build
+      - run: docker compose -f infra/docker-compose.yml push
