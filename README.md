@@ -3,12 +3,12 @@
 OmniaTech AI è una piattaforma enterprise multi‑settore che integra orchestrazione, compliance, incident management e billing in un unico monorepo.
 
 ## 🚀 Caratteristiche principali
-- **Orchestrator**: workflow resilienti e multi‑settore
-- **Security**: JWT/JWKS, mTLS, audit trail
-- **Compliance**: checklist dinamiche e report mensili
-- **Incident Management**: escalation automatica e notifiche Telegram/Matrix
-- **Billing**: multi‑tenant, fatturazione e KPI
-- **Observability**: Prometheus, Grafana, OpenTelemetry
+- Orchestrator, Superior Agent, Workforce
+- Security: JWT/JWKS, mTLS, audit trail
+- Compliance: checklist dinamiche e report mensili
+- Incident Management: escalation automatica e notifiche Telegram/Matrix
+- Billing: multi‑tenant, fatturazione e KPI
+- Observability: Prometheus, Grafana, OpenTelemetry
 
 ## 📦 Installazione
 ### Docker Compose
